@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,51 +8,51 @@ namespace Tool.Map
     [CustomEditor(typeof(TileMap))]
     public class TileMapEditor : Editor
     {
-        #region —ñ‹“ŒQ
+        #region åˆ—æŒ™ç¾¤
         /// <summary>
-        /// ƒ^ƒCƒ‹í—Ş
+        /// ã‚¿ã‚¤ãƒ«ç¨®é¡
         /// </summary>
         private enum ETileType
         {
-            /// <summary>‹´</summary>
+            /// <summary>æ©‹</summary>
             Bridge,
-            /// <summary>Âƒ{ƒ^ƒ“</summary>
+            /// <summary>é’ãƒœã‚¿ãƒ³</summary>
             ButtonPlatformBlue,
-            /// <summary>Ôƒ{ƒ^ƒ“</summary>
+            /// <summary>èµ¤ãƒœã‚¿ãƒ³</summary>
             ButtonPlatformRed,
-            /// <summary>¯</summary>
+            /// <summary>æ˜Ÿ</summary>
             Star,
-            /// <summary>‘</summary>
+            /// <summary>è‰</summary>
             Grass,
-            /// <summary>ã©</summary>
+            /// <summary>ç½ </summary>
             Trap,
-            /// <summary>…i”¼ƒuƒƒbƒNj</summary>
+            /// <summary>æ°´ï¼ˆåŠãƒ–ãƒ­ãƒƒã‚¯ï¼‰</summary>
             Water1,
-            /// <summary>…i‘SƒuƒƒbƒNj</summary>
+            /// <summary>æ°´ï¼ˆå…¨ãƒ–ãƒ­ãƒƒã‚¯ï¼‰</summary>
             Water2,
-            /// <summary>ƒS[ƒ‹</summary>
+            /// <summary>ã‚´ãƒ¼ãƒ«</summary>
             Goal,
 
-            /// <summary>Å‘å</summary>
+            /// <summary>æœ€å¤§</summary>
             Max,
         }
 
         /// <summary>
-        /// ƒ}ƒEƒXƒNƒŠƒbƒNí—Ş
+        /// ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ç¨®é¡
         /// </summary>
         private enum EMouseKeyType
         {
-            /// <summary>¶</summary>
+            /// <summary>å·¦</summary>
             Left,
-            /// <summary>‰E</summary>
+            /// <summary>å³</summary>
             Right,
-            /// <summary>ƒzƒC[ƒ‹</summary>
+            /// <summary>ãƒ›ã‚¤ãƒ¼ãƒ«</summary>
             Wheel,
         }
-        #endregion —ñ‹“ŒQ
+        #endregion åˆ—æŒ™ç¾¤
 
-        #region •Ï”ŒQ
-        /// <summary>ƒ^ƒCƒ‹‚ÌƒAƒhƒŒ</summary>
+        #region å¤‰æ•°ç¾¤
+        /// <summary>ã‚¿ã‚¤ãƒ«ã®ã‚¢ãƒ‰ãƒ¬</summary>
         private readonly Dictionary<int, string> kTilePrefabAddress = new Dictionary<int, string>()
         {
             { (int)ETileType.Bridge, "Prefabs/Bridge" },
@@ -66,52 +66,52 @@ namespace Tool.Map
             { (int)ETileType.Goal, "Prefabs/Waypoint" },
         };
 
-        /// <summary>ƒ}ƒEƒXˆÊ’u</summary>
+        /// <summary>ãƒã‚¦ã‚¹ä½ç½®</summary>
         private Vector3 mouseHitPos = Vector3.zero;
-        /// <summary>‘I‘ğƒ^ƒCƒ‹í—Ş</summary>
+        /// <summary>é¸æŠã‚¿ã‚¤ãƒ«ç¨®é¡</summary>
         private ETileType tileType = ETileType.Bridge;
-        #endregion •Ï”ŒQ
+        #endregion å¤‰æ•°ç¾¤
 
-        #region ƒGƒfƒBƒ^[ˆ—
+        #region ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼å‡¦ç†
         /// <summary>
-        /// ƒGƒfƒBƒ^‚ÌƒV[ƒ“ƒrƒ…[ˆ—
+        /// ã‚¨ãƒ‡ã‚£ã‚¿ã®ã‚·ãƒ¼ãƒ³ãƒ“ãƒ¥ãƒ¼å‡¦ç†
         /// </summary>
         private void OnSceneGUI()
         {
-            // ƒ}ƒEƒX‚ÌˆÊ’u‚ªƒ^ƒCƒ‹ƒ}ƒbƒv‚É“–‚½‚Á‚Ä‚½‚ç
+            // ãƒã‚¦ã‚¹ã®ä½ç½®ãŒã‚¿ã‚¤ãƒ«ãƒãƒƒãƒ—ã«å½“ãŸã£ã¦ãŸã‚‰
             if (UpdateHitPosition())
             {
-                // ƒV[ƒ“ƒrƒ…[‚ÌXV
+                // ã‚·ãƒ¼ãƒ³ãƒ“ãƒ¥ãƒ¼ã®æ›´æ–°
                 SceneView.RepaintAll();
             }
 
-            // ƒ}ƒEƒX‚ÌˆÊ’u‚ğŒvZ‚µ‚Ä‘I‘ğ‚µ‚Ä‚¢‚é‚Æ‚±‚ë‚ğŒˆ‚ß‚é
+            // ãƒã‚¦ã‚¹ã®ä½ç½®ã‚’è¨ˆç®—ã—ã¦é¸æŠã—ã¦ã„ã‚‹ã¨ã“ã‚ã‚’æ±ºã‚ã‚‹
             RecalculateMarkerPosition();
 
-            // Œ»İ‚ÌƒCƒxƒ“ƒg‚Ö‚ÌQÆ‚ğæ“¾‚µ‚Ü‚·
+            // ç¾åœ¨ã®ã‚¤ãƒ™ãƒ³ãƒˆã¸ã®å‚ç…§ã‚’å–å¾—ã—ã¾ã™
             Event current = Event.current;
 
-            // ƒ}ƒEƒX‚ÌˆÊ’u‚ªƒŒƒCƒ„[‚Ìã‚¾‚Á‚½‚ç
+            // ãƒã‚¦ã‚¹ã®ä½ç½®ãŒãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸Šã ã£ãŸã‚‰
             if (IsMouseOnLayer())
             {
-                // ƒ}ƒEƒX‚ª‰Ÿ‚µ‚½uŠÔ‚à‚µ‚­‚ÍƒXƒ‰ƒCƒh’†‚¾‚Á‚½‚ç
+                // ãƒã‚¦ã‚¹ãŒæŠ¼ã—ãŸç¬é–“ã‚‚ã—ãã¯ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã ã£ãŸã‚‰
                 if (current.type == EventType.MouseDown || current.type == EventType.MouseDrag)
                 {
-                    // ‰Ÿ‚µ‚Ä‚é‚Ì‚ª‰Eƒ{ƒ^ƒ“‚¾‚Á‚½‚ç
+                    // æŠ¼ã—ã¦ã‚‹ã®ãŒå³ãƒœã‚¿ãƒ³ã ã£ãŸã‚‰
                     if (current.button == (int)EMouseKeyType.Right)
                     {
-                        // ‚»‚ÌƒuƒƒbƒN‚ğÁ‚·
+                        // ãã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¶ˆã™
                         RemoveTile();
                         current.Use();
                     }
-                    // ‰Ÿ‚µ‚Ä‚é‚Ì‚ª¶ƒ{ƒ^ƒ“‚¾‚Á‚½‚ç
+                    // æŠ¼ã—ã¦ã‚‹ã®ãŒå·¦ãƒœã‚¿ãƒ³ã ã£ãŸã‚‰
                     else if (current.button == (int)EMouseKeyType.Left)
                     {
-                        // ƒuƒƒbƒN‚Ì•`‰æˆ—
+                        // ãƒ–ãƒ­ãƒƒã‚¯ã®æç”»å‡¦ç†
                         CreateTile();
                         current.Use();
                     }
-                    // ‰Ÿ‚µ‚Ä‚é‚Ì‚ªƒzƒC[ƒ‹‚¾‚Á‚½‚ç
+                    // æŠ¼ã—ã¦ã‚‹ã®ãŒãƒ›ã‚¤ãƒ¼ãƒ«ã ã£ãŸã‚‰
                     else if (current.button == (int)EMouseKeyType.Wheel && current.type == EventType.MouseDown)
                     {
                         tileType++;
@@ -119,208 +119,219 @@ namespace Tool.Map
                         {
                             tileType = ETileType.Bridge;
                         }
-                        current.Use();
+                        current.Use(); 
                     }
                 }
             }
 
+            // ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰
+            if(current.type == EventType.KeyDown && current.keyCode == KeyCode.Space )
+            {
+                tileType++;
+                if (tileType == ETileType.Max)
+                {
+                    tileType = ETileType.Bridge;
+                }
+                current.Use();
+            }
 
-            // ƒV[ƒ“ƒrƒ…[‚ÅUIƒ`ƒbƒv‚ğ•`‰æ‚µ‚ÄAƒ^ƒCƒ‹‚Ì•`‰æ•û–@‚ÆÁ‹•û–@‚ğƒ†[ƒU[‚É’Ê’m‚µ‚Ü‚·
+
+            // ã‚·ãƒ¼ãƒ³ãƒ“ãƒ¥ãƒ¼ã§UIãƒãƒƒãƒ—ã‚’æç”»ã—ã¦ã€ã‚¿ã‚¤ãƒ«ã®æç”»æ–¹æ³•ã¨æ¶ˆå»æ–¹æ³•ã‚’ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šçŸ¥ã—ã¾ã™
             Handles.BeginGUI();
             GUI.DrawTexture(new Rect(10, Screen.height - 145, 50, 50), AssetPreview.GetAssetPreview((GameObject)Resources.Load(kTilePrefabAddress[(int)tileType])));
-            GUI.Label(new Rect(10, Screen.height - 135, 200, 100), $"‘I‘ğƒ^ƒCƒ‹: {tileType}");
-            GUI.Label(new Rect(10, Screen.height - 120, 150, 100), "ƒ}ƒEƒX¶ƒNƒŠƒbƒN: ¶¬");
-            GUI.Label(new Rect(10, Screen.height - 105, 150, 100), "ƒ}ƒEƒX‰EƒNƒŠƒbƒN: íœ");
+            GUI.Label(new Rect(10, Screen.height - 135, 200, 100), $"é¸æŠã‚¿ã‚¤ãƒ«: {tileType}");
+            GUI.Label(new Rect(10, Screen.height - 120, 150, 100), "ãƒã‚¦ã‚¹å·¦ã‚¯ãƒªãƒƒã‚¯: ç”Ÿæˆ");
+            GUI.Label(new Rect(10, Screen.height - 105, 150, 100), "ãƒã‚¦ã‚¹å³ã‚¯ãƒªãƒƒã‚¯: å‰Šé™¤");
             Handles.EndGUI();
         }
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒg‚ªƒAƒNƒeƒBƒu‚É‚È‚Á‚½Û‚Ìˆ—
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã£ãŸéš›ã®å‡¦ç†
         /// </summary>
         private void OnEnable()
         {
-            // Œ»İ‚Ìƒc[ƒ‹‚ğ•\¦ƒc[ƒ‹‚Éİ’è‚µ‚Ü‚·
+            // ç¾åœ¨ã®ãƒ„ãƒ¼ãƒ«ã‚’è¡¨ç¤ºãƒ„ãƒ¼ãƒ«ã«è¨­å®šã—ã¾ã™
             Tools.current = UnityEditor.Tool.View;
             Tools.viewTool = ViewTool.FPS;
         }
-        #endregion ƒGƒfƒBƒ^[ˆ—
+        #endregion ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼å‡¦ç†
 
-        #region ƒ^ƒCƒ‹ˆ—
+        #region ã‚¿ã‚¤ãƒ«å‡¦ç†
         /// <summary>
-        /// ƒ^ƒCƒ‹¶¬ˆ—
+        /// ã‚¿ã‚¤ãƒ«ç”Ÿæˆå‡¦ç†
         /// </summary>
         private void CreateTile()
         {
-            // TileMap‚ğæ“¾
+            // TileMapã‚’å–å¾—
             TileMap map = (TileMap)target;
 
-            // Tile‚ÌƒTƒCƒYæ“¾
+            // Tileã®ã‚µã‚¤ã‚ºå–å¾—
             Vector3 tileSize = map.GetTileSize();
 
-            // ƒ}ƒEƒX‚ÌˆÊ’u‚ª‚Ç‚Ìƒ^ƒCƒ‹‚É‚ ‚é‚©æ“¾
+            // ãƒã‚¦ã‚¹ã®ä½ç½®ãŒã©ã®ã‚¿ã‚¤ãƒ«ã«ã‚ã‚‹ã‹å–å¾—
             Vector2 tilePos = GetTilePositionFromMouseLocation();
 
-            // ‚»‚ÌˆÊ’u‚ÌƒuƒƒbƒN‚Ì’†g‚ğ“ü‚ê‚é
+            // ãã®ä½ç½®ã®ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­èº«ã‚’å…¥ã‚Œã‚‹
             GameObject cube = GameObject.Find(string.Format("Tile_{0}_{1}", tilePos.x, tilePos.y));
 
-            // ‚»‚ÌƒuƒƒbƒN‚ª‘¶İ‚µ‚Ä‚½‚ç•Ô‚·
+            // ãã®ãƒ–ãƒ­ãƒƒã‚¯ãŒå­˜åœ¨ã—ã¦ãŸã‚‰è¿”ã™
             if (cube != null && cube.transform.parent != map.transform)
             {
                 return;
             }
 
-            //@null‚¾‚Á‚½‚ç
+            //ã€€nullã ã£ãŸã‚‰
             if (cube == null)
             {
-                // ƒuƒƒbƒN‚ğì¬‚·‚é
+                // ãƒ–ãƒ­ãƒƒã‚¯ã‚’ä½œæˆã™ã‚‹
                 GameObject prefab = (GameObject)Resources.Load(kTilePrefabAddress[(int)tileType]);
                 cube = Instantiate(prefab, Vector3.zero, Quaternion.identity);
             }
 
-            // ƒuƒƒbƒN‚ÌˆÊ’u‚Ì‰Šú‰»
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®ä½ç½®ã®åˆæœŸåŒ–
             Vector3 tilePositionInLocalSpace = new Vector3((tilePos.x * tileSize.x) + (tileSize.x / 2), (tilePos.y * tileSize.y) + (tileSize.y / 2));
             cube.transform.position = map.transform.position + tilePositionInLocalSpace;
 
-            // ƒTƒCƒY‚Ì‰Šú‰»
+            // ã‚µã‚¤ã‚ºã®åˆæœŸåŒ–
             cube.transform.localScale = tileSize;
 
-            // eqŠÖŒW‚ğŒ‹‚Ô
+            // è¦ªå­é–¢ä¿‚ã‚’çµã¶
             cube.transform.parent = map.transform;
 
-            // ƒuƒƒbƒN‚Ì–¼‘O‚Ì‰Šú‰»
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®åå‰ã®åˆæœŸåŒ–
             cube.name = string.Format("Tile_{0}_{1}", tilePos.x, tilePos.y);
         }
 
         /// <summary>
-        /// ƒ^ƒCƒ‹íœˆ—
+        /// ã‚¿ã‚¤ãƒ«å‰Šé™¤å‡¦ç†
         /// </summary>
         private void RemoveTile()
         {
-            // TileMap‚ğæ“¾
+            // TileMapã‚’å–å¾—
             TileMap map = (TileMap)target;
 
-            // ƒ}ƒEƒX‚ÌˆÊ’u‚ª‚Ç‚Ìƒ^ƒCƒ‹‚É‚ ‚é‚©æ“¾
+            // ãƒã‚¦ã‚¹ã®ä½ç½®ãŒã©ã®ã‚¿ã‚¤ãƒ«ã«ã‚ã‚‹ã‹å–å¾—
             Vector2 tilePos = GetTilePositionFromMouseLocation();
 
-            // “–‚½‚Á‚Ä‚éƒ^ƒCƒ‹‚ğæ“¾
+            // å½“ãŸã£ã¦ã‚‹ã‚¿ã‚¤ãƒ«ã‚’å–å¾—
             GameObject cube = GameObject.Find(string.Format("Tile_{0}_{1}", tilePos.x, tilePos.y));
 
-            // ƒuƒƒbƒN‚Ì’†‚ª‚È‚©‚Á‚½‚ç
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­ãŒãªã‹ã£ãŸã‚‰
             if (cube != null && cube.transform.parent == map.transform)
             {
-                // ‚»‚ÌƒuƒƒbƒN‚ğÁ‚·
+                // ãã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¶ˆã™
                 UnityEngine.Object.DestroyImmediate(cube);
             }
         }
-        #endregion ƒ^ƒCƒ‹ˆ—
+        #endregion ã‚¿ã‚¤ãƒ«å‡¦ç†
 
-        #region ‘€ìˆ—
+        #region æ“ä½œå‡¦ç†
         /// <summary>
-        /// ƒ}ƒEƒX‚ÌˆÊ’u‚ª‚Ç‚Ìƒ^ƒCƒ‹‚É‚ ‚é‚©æ“¾ˆ—
+        /// ãƒã‚¦ã‚¹ã®ä½ç½®ãŒã©ã®ã‚¿ã‚¤ãƒ«ã«ã‚ã‚‹ã‹å–å¾—å‡¦ç†
         /// </summary>
         /// <returns></returns>
         private Vector2 GetTilePositionFromMouseLocation()
         {
-            // TileMap‚ğæ“¾s
+            // TileMapã‚’å–å¾—s
             TileMap map = (TileMap)target;
 
-            // Tile‚ÌƒTƒCƒYæ“¾
+            // Tileã®ã‚µã‚¤ã‚ºå–å¾—
             Vector3 tileSize = map.GetTileSize();
 
-            // ƒ}ƒEƒX‚Ì“–‚½‚Á‚Ä‚éˆÊ’u‚©‚ç—ñ‚Æs‚ÌˆÊ’u
+            // ãƒã‚¦ã‚¹ã®å½“ãŸã£ã¦ã‚‹ä½ç½®ã‹ã‚‰åˆ—ã¨è¡Œã®ä½ç½®
             Vector3 pos = new Vector3(mouseHitPos.x / tileSize.x, mouseHitPos.y / tileSize.y, map.transform.position.z);
 
-            // lÌŒÜ“ü‚·‚é
+            // å››æ¨äº”å…¥ã™ã‚‹
             pos = new Vector3((int)Math.Round(pos.x, 5, MidpointRounding.ToEven), (int)Math.Round(pos.y, 5, MidpointRounding.ToEven), 0);
 
             int col = (int)pos.x;
             int row = (int)pos.y;
 
-            // ’´‚¦‚½‚çÅ‘å‚ğ“ü‚ê‚é
+            // è¶…ãˆãŸã‚‰æœ€å¤§ã‚’å…¥ã‚Œã‚‹
             if (row < 0) row = 0;
             if (row > map.rows - 1) row = map.rows - 1;
             if (col < 0) col = 0;
             if (col > map.columns - 1) col = map.columns - 1;
 
-            // “–‚½‚Á‚Ä‚é—ñ‚Æs‚ğ•Ô‚·
+            // å½“ãŸã£ã¦ã‚‹åˆ—ã¨è¡Œã‚’è¿”ã™
             return new Vector2(col, row);
         }
 
         /// <summary>
-        /// ƒ}ƒEƒX‚ÌˆÊ’u‚ªƒ}ƒbƒv‚É“–‚½‚Á‚Ä‚é‚©‚Ìˆ—
+        /// ãƒã‚¦ã‚¹ã®ä½ç½®ãŒãƒãƒƒãƒ—ã«å½“ãŸã£ã¦ã‚‹ã‹ã®å‡¦ç†
         /// </summary>
         /// <returns></returns>
         private bool IsMouseOnLayer()
         {
-            // TileMap‚Ìæ“¾
+            // TileMapã®å–å¾—
             TileMap map = (TileMap)target;
 
-            // Tile‚ÌƒTƒCƒYæ“¾
+            // Tileã®ã‚µã‚¤ã‚ºå–å¾—
             Vector3 tileSize = map.GetTileSize();
 
-            // “–‚½‚Á‚Ä‚½‚çtrue‚ğ•Ô‚·
+            // å½“ãŸã£ã¦ãŸã‚‰trueã‚’è¿”ã™
             if (mouseHitPos.x > 0 && mouseHitPos.x < (map.columns * tileSize.x) &&
                    mouseHitPos.y > 0 && mouseHitPos.y < (map.rows * tileSize.y))
                 return true;
 
-            // ˆá‚Á‚½‚çfalse‚ğ•Ô‚·
+            // é•ã£ãŸã‚‰falseã‚’è¿”ã™
             return false;
         }
 
         /// <summary>
-        /// ƒ}ƒEƒX‚ÌˆÊ’u‚ª‚Ç‚ÌƒuƒƒbƒN‚É“–‚½‚Á‚Ä‚é‚©ŒvZ‚·‚éˆ—
+        /// ãƒã‚¦ã‚¹ã®ä½ç½®ãŒã©ã®ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã£ã¦ã‚‹ã‹è¨ˆç®—ã™ã‚‹å‡¦ç†
         /// </summary>
         private void RecalculateMarkerPosition()
         {
-            // TileMap‚Ìæ“¾
+            // TileMapã®å–å¾—
             TileMap map = (TileMap)target;
 
-            // Tile‚ÌƒTƒCƒYæ“¾
+            // Tileã®ã‚µã‚¤ã‚ºå–å¾—
             Vector3 tileSize = map.GetTileSize();
 
-            // “–‚½‚Á‚Ä‚éƒuƒƒbƒN‚ÌêŠ‚ğæ“¾
+            // å½“ãŸã£ã¦ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®å ´æ‰€ã‚’å–å¾—
             Vector2 tilepos = GetTilePositionFromMouseLocation();
 
-            // “–‚½‚Á‚Ä‚éƒuƒƒbƒN‚ÌˆÊ’u‚ğæ“¾
+            // å½“ãŸã£ã¦ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ä½ç½®ã‚’å–å¾—
             Vector3 pos = new Vector3(tilepos.x * tileSize.x, tilepos.y * tileSize.y, 0);
 
-            // ‘I‘ğ‚µ‚Ä‚éƒuƒƒbƒN‚ğ‘ã“ü
+            // é¸æŠã—ã¦ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã‚’ä»£å…¥
             map.SetSelectTilePosition(map.transform.position +
                 new Vector3(pos.x + (tileSize.x / 2), pos.y + (tileSize.y / 2), 0));
         }
 
         /// <summary>
-        /// ƒ}ƒEƒX‚ÌˆÊ’u‚ªƒ^ƒCƒ‹ƒ}ƒbƒv‚É“–‚½‚Á‚Ä‚½‚ç
+        /// ãƒã‚¦ã‚¹ã®ä½ç½®ãŒã‚¿ã‚¤ãƒ«ãƒãƒƒãƒ—ã«å½“ãŸã£ã¦ãŸã‚‰
         /// </summary>
         /// <returns></returns>
         private bool UpdateHitPosition()
         {
-            // TileMap‚Ìæ“¾
+            // TileMapã®å–å¾—
             TileMap map = (TileMap)target;
 
-            // •½–ÊƒIƒuƒWƒFƒNƒg‚ğì‚é
+            // å¹³é¢ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹
             Plane p = new Plane(map.transform.TransformDirection(Vector3.forward), map.transform.position);
 
-            // Œ»İ‚Ìƒ}ƒEƒXˆÊ’u‚©‚çƒŒƒCƒ^ƒCƒv‚ğ\’z‚·‚é
+            // ç¾åœ¨ã®ãƒã‚¦ã‚¹ä½ç½®ã‹ã‚‰ãƒ¬ã‚¤ã‚¿ã‚¤ãƒ—ã‚’æ§‹ç¯‰ã™ã‚‹
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
 
-            // “–‚½‚Á‚Ä‚éˆÊ’u‚ğæ“¾
+            // å½“ãŸã£ã¦ã‚‹ä½ç½®ã‚’å–å¾—
             Vector3 hit = new Vector3();
 
-            // “–‚½‚Á‚Ä‚éˆÊ’u‚Ü‚Å‚Ì‹——£
+            // å½“ãŸã£ã¦ã‚‹ä½ç½®ã¾ã§ã®è·é›¢
             float dist;
 
-            // •½–Ê‚ÆŒğ·‚·‚éêŠ‚ğ“Á’è‚·‚é‚½‚ß‚ÉŒõü‚ğ“Š‰e‚·‚é
+            // å¹³é¢ã¨äº¤å·®ã™ã‚‹å ´æ‰€ã‚’ç‰¹å®šã™ã‚‹ãŸã‚ã«å…‰ç·šã‚’æŠ•å½±ã™ã‚‹
             if (p.Raycast(ray, out dist))
             {
-                // Œõü‚ª•½–Ê‚É“–‚½‚é‚Ì‚ÅAƒ[ƒ‹ƒh‹óŠÔ‚Å‚Ì“–‚½‚éˆÊ’u‚ğŒvZ‚µ‚Ü‚·B
+                // å…‰ç·šãŒå¹³é¢ã«å½“ãŸã‚‹ã®ã§ã€ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã§ã®å½“ãŸã‚‹ä½ç½®ã‚’è¨ˆç®—ã—ã¾ã™ã€‚
                 hit = ray.origin + (ray.direction.normalized * dist);
             }
 
-            // “–‚½‚Á‚Ä‚éˆÊ’u‚ğƒ[ƒ‹ƒh‹óŠÔ‚©‚çƒ[ƒJƒ‹‹óŠÔ‚É•ÏŠ·‚·‚é
+            // å½“ãŸã£ã¦ã‚‹ä½ç½®ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã‹ã‚‰ãƒ­ãƒ¼ã‚«ãƒ«ç©ºé–“ã«å¤‰æ›ã™ã‚‹
             Vector3 value = map.transform.InverseTransformPoint(hit);
 
-            // ’l‚ªˆÙ‚È‚éê‡‚ÍAŒ»İ‚Ìƒ}ƒEƒX‚ÌƒqƒbƒgˆÊ’u‚ªtrue 
+            // å€¤ãŒç•°ãªã‚‹å ´åˆã¯ã€ç¾åœ¨ã®ãƒã‚¦ã‚¹ã®ãƒ’ãƒƒãƒˆä½ç½®ãŒtrue 
             if (value != mouseHitPos)
             {
                 mouseHitPos = value;
@@ -329,6 +340,6 @@ namespace Tool.Map
 
             return false;
         }
-        #endregion ‘€ìˆ—
+        #endregion æ“ä½œå‡¦ç†
     }
 }
