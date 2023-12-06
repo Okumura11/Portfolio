@@ -24,6 +24,8 @@ namespace Tool.Map
             Star,
             /// <summary>草</summary>
             Grass,
+            /// <summary>土</summary>
+            Dirt,
             /// <summary>罠</summary>
             Trap,
             /// <summary>水（半ブロック）</summary>
@@ -60,6 +62,7 @@ namespace Tool.Map
             { (int)ETileType.ButtonPlatformRed, "Prefabs/ButtonPlatformRed" },
             { (int)ETileType.Star, "Prefabs/Star" },
             { (int)ETileType.Grass, "Prefabs/Grass" },
+            { (int)ETileType.Dirt, "Prefabs/Dirt" },
             { (int)ETileType.Trap, "Prefabs/Trap" },
             { (int)ETileType.Water1, "Prefabs/Water1" },
             { (int)ETileType.Water2, "Prefabs/Water2" },
