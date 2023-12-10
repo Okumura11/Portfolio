@@ -1,88 +1,88 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Tool.Map
 {
     public class TileMap : MonoBehaviour
     {
-        #region •Ï”ŒQ
-        /// <summary>ƒ^ƒCƒ‹ƒTƒCƒY</summary>
+        #region å¤‰æ•°ç¾¤
+        /// <summary>ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚º</summary>
         private readonly Vector3 kTileSize = Vector3.one;
-        /// <summary>‘I‘ğ‚µ‚Ä‚¢‚éŠ‚Ìü‚ÌF</summary>
+        /// <summary>é¸æŠã—ã¦ã„ã‚‹æ‰€ã®ç·šã®è‰²</summary>
         private readonly Color kSelectLineColor = Color.red;
-        /// <summary>ŠO‚Ìü‚ÌF</summary>
+        /// <summary>å¤–ã®ç·šã®è‰²</summary>
         private readonly Color kOutLineColor = Color.blue;
-        /// <summary>ƒ}ƒbƒv‚Ìü‚ÌF</summary>
+        /// <summary>ãƒãƒƒãƒ—ã®ç·šã®è‰²</summary>
         private readonly Color kMapLineColor = Color.white;
 
-        [SerializeField, Header("ƒ^ƒCƒ‹‚Ìs”")]
+        [SerializeField, Header("ã‚¿ã‚¤ãƒ«ã®è¡Œæ•°")]
         public int rows = 25;
-        [SerializeField, Header("ƒ^ƒCƒ‹‚Ì—ñ”")]
+        [SerializeField, Header("ã‚¿ã‚¤ãƒ«ã®åˆ—æ•°")]
         public int columns = 100;
-        /// <summary>‘I‘ğƒ^ƒCƒ‹ˆÊ’u</summary>
+        /// <summary>é¸æŠã‚¿ã‚¤ãƒ«ä½ç½®</summary>
         private Vector3 selectTilePosition = Vector3.zero;
-        #endregion •Ï”ŒQ
+        #endregion å¤‰æ•°ç¾¤
 
-        #region XVˆ—
-        // ƒOƒŠƒbƒh‚Ì•`‰æˆ—
+        #region æ›´æ–°å‡¦ç†
+        // ã‚°ãƒªãƒƒãƒ‰ã®æç”»å‡¦ç†
         private void OnDrawGizmosSelected()
         {
-            // ƒIƒuƒWƒFƒNƒg‚Ì‰ŠúˆÊ’u‚Ìæ“¾
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸä½ç½®ã®å–å¾—
             Vector3 position = transform.position;
-            // ŠO‚Ìü‚ÌF‚ğŒˆ‚ß‚é
+            // å¤–ã®ç·šã®è‰²ã‚’æ±ºã‚ã‚‹
             Gizmos.color = kOutLineColor;
-            // ¶‰º‚©‚ç‰E‰º‚Ìü‚ğˆø‚­
+            // å·¦ä¸‹ã‹ã‚‰å³ä¸‹ã®ç·šã‚’å¼•ã
             Gizmos.DrawLine(position,
                 position + new Vector3(columns * kTileSize.x, 0, 0));
-            // ¶‰º‚©‚ç¶ã‚Ìü‚ğˆø‚­
+            // å·¦ä¸‹ã‹ã‚‰å·¦ä¸Šã®ç·šã‚’å¼•ã
             Gizmos.DrawLine(position,
                 position + new Vector3(0, rows * kTileSize.y, 0));
-            // ‰E‰º‚©‚ç‰Eã‚Ìü‚ğˆø‚­
+            // å³ä¸‹ã‹ã‚‰å³ä¸Šã®ç·šã‚’å¼•ã
             Gizmos.DrawLine(position + new Vector3(columns * kTileSize.x, 0, 0),
                 position + new Vector3(columns * kTileSize.x, rows * kTileSize.y, 0));
-            // ¶ã‚©‚ç‰Eã‚Ìü‚ğˆø‚­
+            // å·¦ä¸Šã‹ã‚‰å³ä¸Šã®ç·šã‚’å¼•ã
             Gizmos.DrawLine(position + new Vector3(0, rows * kTileSize.y, 0)
                 , position + new Vector3(columns * kTileSize.x, rows * kTileSize.y, 0));
-            // ƒ}ƒbƒv‚ÌF‚ğŒˆ‚ß‚é
+            // ãƒãƒƒãƒ—ã®è‰²ã‚’æ±ºã‚ã‚‹
             Gizmos.color = kMapLineColor;
-            // —ñ”•ª‰ñ‚·
+            // åˆ—æ•°åˆ†å›ã™
             for (float i = 1; i < columns; i++)
             {
-                // ‰¡‚Ìü‚ğˆø‚­
+                // æ¨ªã®ç·šã‚’å¼•ã
                 Gizmos.DrawLine(position + new Vector3(i * kTileSize.x, 0, 0), position + new Vector3(i * kTileSize.x, rows * kTileSize.y, 0));
             }
-            // s”•ª‰ñ‚·
+            // è¡Œæ•°åˆ†å›ã™
             for (float i = 1; i < rows; i++)
             {
-                // c‚Ìü‚ğˆø‚­
+                // ç¸¦ã®ç·šã‚’å¼•ã
                 Gizmos.DrawLine(position + new Vector3(0, i * kTileSize.y, 0), position + new Vector3(columns * kTileSize.x, i * kTileSize.y, 0));
             }
-            // ‘I‘ğ‚µ‚Ä‚¢‚é‚Æ‚±‚ë‚ÌF‚ğŒˆ‚ß‚é
+            // é¸æŠã—ã¦ã„ã‚‹ã¨ã“ã‚ã®è‰²ã‚’æ±ºã‚ã‚‹
             Gizmos.color = kSelectLineColor;
-            // ‘I‘ğ‚µ‚Ä‚¢‚éŠ‚É‘Ši‚ğ‘‚­
+            // é¸æŠã—ã¦ã„ã‚‹æ‰€ã«è³‡æ ¼ã‚’æ›¸ã
             Gizmos.DrawWireCube(selectTilePosition, new Vector3(kTileSize.x, kTileSize.y, 1) * 1.1f);
         }
-        #endregion XVˆ—
+        #endregion æ›´æ–°å‡¦ç†
 
-        #region æ“¾ˆ—
+        #region å–å¾—å‡¦ç†
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒTƒCƒYæ“¾ˆ—
+        /// ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚ºå–å¾—å‡¦ç†
         /// </summary>
-        /// <returns>ƒ^ƒCƒ‹ƒTƒCƒY</returns>
+        /// <returns>ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚º</returns>
         public Vector3 GetTileSize()
         {
             return kTileSize;
         }
-        #endregion æ“¾ˆ—
+        #endregion å–å¾—å‡¦ç†
 
-        #region İ’èˆ—
+        #region è¨­å®šå‡¦ç†
         /// <summary>
-        /// ‘I‘ğƒ^ƒCƒ‹ˆÊ’uİ’èˆ—
+        /// é¸æŠã‚¿ã‚¤ãƒ«ä½ç½®è¨­å®šå‡¦ç†
         /// </summary>
         /// <param name="pos"></param>
         public void SetSelectTilePosition(Vector3 pos)
         {
             selectTilePosition = pos;
         }
-        #endregion İ’èˆ—
+        #endregion è¨­å®šå‡¦ç†
     }
 }

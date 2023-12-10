@@ -1,60 +1,60 @@
-using StateEvents;
+ï»¿using StateEvents;
 using UnityEngine;
 
 namespace Character
 {
     public class Player : MonoBehaviour
     {
-        #region —ñ‹“ŒQ
+        #region åˆ—æŒ™ç¾¤
         /// <summary>
-        /// ƒvƒŒƒCƒ„[s“®ó‘Ô
+        /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•çŠ¶æ…‹
         /// </summary>
         private enum PlayerStatus
         {
-            /// <summary>¶‘¶</summary>
+            /// <summary>ç”Ÿå­˜</summary>
             Alive,
-            /// <summary>€–S</summary>
+            /// <summary>æ­»äº¡</summary>
             Death,
-            /// <summary>Ÿ—˜</summary>
+            /// <summary>å‹åˆ©</summary>
             Victory,
         }
-        #endregion —ñ‹“ŒQ
+        #endregion åˆ—æŒ™ç¾¤
 
-        #region •Ï”ŒQ
-        /// <summary>€–SƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ</summary>
+        #region å¤‰æ•°ç¾¤
+        /// <summary>æ­»äº¡ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“</summary>
         private const int kDeathAnimFrame = 90;
-        /// <summary>€–SŠÔi…‚à‚µ‚­‚Í—‚¿‚½j</summary>
+        /// <summary>æ­»äº¡æ™‚é–“ï¼ˆæ°´ã‚‚ã—ãã¯è½ã¡ãŸæ™‚ï¼‰</summary>
         private const int kDeathFrame = 30;
-        /// <summary>Ÿ—˜ƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ</summary>
+        /// <summary>å‹åˆ©ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“</summary>
         private const int kVictoryFrame = 120;
-        /// <summary>ƒŒƒC‚Ì‹——£</summary>
+        /// <summary>ãƒ¬ã‚¤ã®è·é›¢</summary>
         private const float kRayDistance = 0.2f;
 
-        [SerializeField, Header("ˆÚ“®‘¬“x")]
+        [SerializeField, Header("ç§»å‹•é€Ÿåº¦")]
         private float speed = 3;
-        [SerializeField, Header("ƒWƒƒƒ“ƒv—Í")]
+        [SerializeField, Header("ã‚¸ãƒ£ãƒ³ãƒ—åŠ›")]
         private float jumpPower = 1800;
-        /// <summary>ƒvƒŒƒCƒ„[ƒAƒjƒ[ƒVƒ‡ƒ“</summary>
+        /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³</summary>
         private PlayerAnimationComponent playerAnimation = null;
-        /// <summary>•¨——p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg</summary>
+        /// <summary>ç‰©ç†ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ</summary>
         private Rigidbody rb = null;
-        /// <summary>’n–Ê‚É‚¢‚é‚©</summary>
+        /// <summary>åœ°é¢ã«ã„ã‚‹ã‹</summary>
         private bool isGrounded = false;
-        /// <summary>ˆÚ“®‰Â”\‚©</summary>
+        /// <summary>ç§»å‹•å¯èƒ½ã‹</summary>
         private bool isCanMove = false;
-        /// <summary>ŠÔƒJƒEƒ“ƒg</summary>
+        /// <summary>æ™‚é–“ã‚«ã‚¦ãƒ³ãƒˆ</summary>
         private int frame = 0;
-        /// <summary>ŠÔ</summary>
+        /// <summary>æ™‚é–“</summary>
         private int maxFrame = 0;
-        /// <summary>ŠJnˆÊ’u</summary>
+        /// <summary>é–‹å§‹ä½ç½®</summary>
         private Vector3 startPos = Vector3.zero;
-        /// <summary>s“®ó‘Ô</summary>
+        /// <summary>è¡Œå‹•çŠ¶æ…‹</summary>
         private PlayerStatus playerStatus = PlayerStatus.Alive;
-        #endregion •Ï”ŒQ
+        #endregion å¤‰æ•°ç¾¤
 
-        #region MonoBehaviourƒCƒxƒ“ƒg
+        #region MonoBehaviourã‚¤ãƒ™ãƒ³ãƒˆ
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         private void Awake()
         {
@@ -69,7 +69,7 @@ namespace Character
         }
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         private void Update()
         {
@@ -89,11 +89,11 @@ namespace Character
                     break;
             }
         }
-        #endregion MonoBehaviourƒCƒxƒ“ƒg
+        #endregion MonoBehaviourã‚¤ãƒ™ãƒ³ãƒˆ
 
-        #region XVˆ—
+        #region æ›´æ–°å‡¦ç†
         /// <summary>
-        /// ¶‘¶’†ˆ—
+        /// ç”Ÿå­˜ä¸­å‡¦ç†
         /// </summary>
         private void AliveUpdate()
         {
@@ -106,7 +106,7 @@ namespace Character
 
             UpdateGrounded();
 
-            // ‘€ìˆ—
+            // æ“ä½œå‡¦ç†
             //***********************************************************************************************
             if (Input.GetKey(KeyCode.RightArrow))
             {
@@ -147,7 +147,7 @@ namespace Character
         }
 
         /// <summary>
-        /// ƒŠƒXƒ|[ƒ“ˆ—
+        /// ãƒªã‚¹ãƒãƒ¼ãƒ³å‡¦ç†
         /// </summary>
         private void Respawn()
         {
@@ -162,7 +162,7 @@ namespace Character
         }
 
         /// <summary>
-        /// ’n–Ê”»’èˆ—
+        /// åœ°é¢åˆ¤å®šå‡¦ç†
         /// </summary>
         private void UpdateGrounded()
         {
@@ -196,11 +196,11 @@ namespace Character
                 }
             }
         }
-        #endregion XVˆ—
+        #endregion æ›´æ–°å‡¦ç†
 
-        #region “–‚½‚è”»’è
+        #region å½“ãŸã‚Šåˆ¤å®š
         /// <summary>
-        /// “–‚½‚è”»’èˆ—
+        /// å½“ãŸã‚Šåˆ¤å®šå‡¦ç†
         /// </summary>
         /// <param name="collision"></param>
         private void OnTriggerEnter(Collider collision)
@@ -228,6 +228,6 @@ namespace Character
                 maxFrame = kVictoryFrame;
             }
         }
-        #endregion “–‚½‚è”»’è
+        #endregion å½“ãŸã‚Šåˆ¤å®š
     }
 }
