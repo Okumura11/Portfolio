@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Unreal Engine4
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
-  m_sharedMaterial: {fileID: -7786892333198751292, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26613035013830f4f8d332b99849fca1, type: 2}
+  m_sharedMaterial: {fileID: 8506070586860535831, guid: 26613035013830f4f8d332b99849fca1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -203,8 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Unity
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
-  m_sharedMaterial: {fileID: -7786892333198751292, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26613035013830f4f8d332b99849fca1, type: 2}
+  m_sharedMaterial: {fileID: 8506070586860535831, guid: 26613035013830f4f8d332b99849fca1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1302,8 +1302,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: C#
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
-  m_sharedMaterial: {fileID: -7786892333198751292, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26613035013830f4f8d332b99849fca1, type: 2}
+  m_sharedMaterial: {fileID: 8506070586860535831, guid: 26613035013830f4f8d332b99849fca1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1478,8 +1478,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u7D4C\u9A13/\u4FDD\u6709\u30B9\u30AD\u30EB"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
-  m_sharedMaterial: {fileID: -7786892333198751292, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26613035013830f4f8d332b99849fca1, type: 2}
+  m_sharedMaterial: {fileID: 8506070586860535831, guid: 26613035013830f4f8d332b99849fca1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1824,8 +1824,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: C/C++
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
-  m_sharedMaterial: {fileID: -7786892333198751292, guid: 288c5e2f0b0ad5542b068a15c85a26f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26613035013830f4f8d332b99849fca1, type: 2}
+  m_sharedMaterial: {fileID: 8506070586860535831, guid: 26613035013830f4f8d332b99849fca1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
